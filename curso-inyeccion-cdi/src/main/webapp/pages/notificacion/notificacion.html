@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Notificacion</title>
+  <script type="text/javascript">
+  var wsocket;
+  function connect() {
+  	wsocket = new WebSocket("ws://localhost:8080/curso-inyeccion-cdi/notificacion");
+  	wsocket.onmessage = onMessage;
+  }
+  function onMessage(evt) {
+//   	document.getElementById("notificacion").innerHTML = evt.data;
+  	document.getElementById("notificacion").value = evt.data;
+  }
+
+  function enviarMensaje () {
+	  window.alert ("va a enviar mensaje " + document.getElementById ("mensaje").value)
+	  wsocket.send (document.getElementById ("mensaje").value);
+	  }
+  
+  window.addEventListener("load", connect, false);
+  </script>
+</head>
+<body>
+	<input id="notificacion" type="text" size="100" maxlength="600" readonly />
+	
+	<textarea id="mensaje" rows="2" cols="100"> </textarea>
+	<input type="submit" id="enviar-button" value="Enviar!" onclick="enviarMensaje ();"/>
+</body>
+</html>

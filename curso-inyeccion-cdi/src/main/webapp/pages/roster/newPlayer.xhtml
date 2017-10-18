@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+                       xmlns:p="http://primefaces.org/ui"
+                       xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/layout/template.xhtml">
+
+        <ui:define name="title">#{propiedadesComunes['casabaca.curso.jee.roster.player']}</ui:define>
+        <ui:define name="head">
+        	<h1><h:outputLabel value="#{propiedadesComunes['casabaca.curso.jee.roster.player.new']}" /></h1>
+        </ui:define>
+        <ui:define name="content">
+        	<p:messages autoUpdate="true"/>
+        	<p:growl autoUpdate="true" />
+            <h:form id="player-form">
+            
+            	<h:panelGrid columns="2">
+            		<h:outputLabel value="#{propiedadesComunes['casabaca.curso.jee.name']}" />
+            		<p:inputText value="#{newPlayerController.player.name}" required="true">
+            			<f:valueChangeListener type="ec.casabaca.roster.web.listener.PlayerNameChangeListener" />
+            			<f:validateLength minimum="2" />
+            			<f:validator validatorId="ec.casabaca.PlayerNameValidator" />
+            		</p:inputText>
+            		<h:outputLabel value="#{propiedadesComunes['casabaca.curso.jee.roster.position']}" />
+            		<p:selectOneMenu value="#{newPlayerController.player.position}" required="true">
+            			<f:selectItems value="#{newPlayerController.positions}" var="position" itemLabel="#{position}" itemValue="#{position}">
+            			</f:selectItems>
+            		</p:selectOneMenu>
+            		<h:outputLabel value="#{propiedadesComunes['casabaca.curso.jee.roster.salary']}" />
+            		<p:inputText value="#{newPlayerController.player.salary}" required="true">
+            			<f:converter converterId="javax.faces.Double" />
+            		</p:inputText>
+            		<p:commandButton action="#{newPlayerController.savePlayer}" actionListener="#{newPlayerController.savePlayerListener}" value="#{propiedadesComunes['casabaca.curso.jee.save']}">
+            			
+            		</p:commandButton>
+            	</h:panelGrid>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+</html>

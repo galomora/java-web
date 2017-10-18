@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+</h:head>
+<h:body>
+	<ui:composition template="/layout/template.xhtml">
+		
+		<ui:define name="content">
+			<p:panel id="panel_mensajes">
+				<p:messages id="panel-messages" autoUpdate="true"/>
+			</p:panel>
+			<h:form id="principal_form">
+				<p:dataTable id="personas-table" 
+					widgetVar="personas-table"
+					value="#{listaPersonasControlador.personas}" 
+					var="persona"  
+					paginator="true" rows="10"  
+					paginatorPosition="top"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+					rowsPerPageTemplate="5,10,15"
+					emptyMessage="No existen datos">
+					<p:column headerText="Nombre">
+						<h:outputText value="#{persona.nombre}" />
+					</p:column>
+					<p:column headerText="Fecha de Nacimiento">
+						<h:outputText value="#{persona.fechaNacimiento}" />
+					</p:column>
+					<p:column headerText="Seleccionar">
+						<p:commandLink action="#{listaPersonasControlador.seleccionarPersona}" value="Seleccionar">
+							<f:setPropertyActionListener value="#{persona}" target="#{listaPersonasControlador.persona}"></f:setPropertyActionListener>
+						</p:commandLink>
+					</p:column>
+					<f:facet name="footer">
+						<p:commandLink action="/pages/persona/crearPersona.xhtml" value="Crear Persona" id="crear-button" />
+					</f:facet>
+				</p:dataTable>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

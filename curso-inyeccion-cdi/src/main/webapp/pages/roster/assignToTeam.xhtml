@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/layout/template.xhtml">
+
+        <ui:define name="title">#{propiedadesComunes['casabaca.curso.jee.roster.player']}</ui:define>
+        <ui:define name="head">
+        	<h1><h:outputLabel value="#{propiedadesComunes['casabaca.curso.jee.roster.player.new']}" /></h1>
+        </ui:define>
+        <ui:define name="content">
+        	<p:messages autoUpdate="true" />
+            <h:form id="player-form">
+            	<h:panelGrid columns="2">
+            		<h:outputLabel value="#{propiedadesComunes['casabaca.curso.jee.name']}" />
+            		<h:outputText value="#{newPlayerController.player.name}" >
+            		</h:outputText>
+            		<h:outputLabel value="#{propiedadesComunes['casabaca.curso.jee.roster.position']}" />
+            		<h:outputText value="#{newPlayerController.player.position}" />
+            		<h:outputLabel value="#{propiedadesComunes['casabaca.curso.jee.roster.salary']}" />
+            		<h:outputText value="#{newPlayerController.player.salary}" >
+            			<f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" pattern="#0000.00" />
+            		</h:outputText>
+            		<h:outputLabel value="#{propiedadesComunes['casabaca.curso.jee.roster.teams']}" />
+            		<p:selectOneMenu value="#{newPlayerController.team}" required="true" converter="ec.casabaca.TeamConverter">
+            			<f:selectItems value="#{newPlayerController.teams}" var="team" itemLabel="#{team.name}" itemValue="#{team}">
+            			</f:selectItems>
+            			<p:ajax event="change" process="@this"></p:ajax>
+            		</p:selectOneMenu>
+            		<h:outputLabel value="json" />
+            		<h:inputTextarea value="#{newPlayerController.player.json}" disabled="true" rows="10" style="width: 600;" />
+            		
+            		<p:commandButton action="#{newPlayerController.cancel}" actionListener="#{newPlayerController.endConversation}" 
+            		value="#{propiedadesComunes['casabaca.curso.jee.cancel']}">
+            			
+            		</p:commandButton>
+            	</h:panelGrid>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+</html>

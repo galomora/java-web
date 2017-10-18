@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+</h:head>
+<h:body>
+	<ui:composition template="/layout/template.xhtml">
+		<ui:define name="content">
+			<p:growl autoUpdate="true" />
+			<h:form id="principal_form">
+				<h:panelGrid columns="2">
+					<f:facet name="header">
+						<h:outputLabel value="Ejemplos" />
+					</f:facet>
+					<h:outputLabel value="Contador" />
+					<p:commandLink action="/pages/contador/contador.xhtml?faces-redirect=true" value="Contador" />
+					<h:outputLabel value="Asincronico" />
+					<p:commandLink action="/pages/asincronico.xhtml" value="Ejecucion asincronica" />
+					<h:outputLabel value="Adivinar numero" />
+					<p:commandLink action="/pages/random.xhtml" value="Adivinar numero" />
+					<h:outputLabel value="Saludo" />
+					<p:commandLink action="/pages/saludo.xhtml" value="Saludo" />
+					<h:outputLabel value="Timers" />
+					<p:commandLink action="/pages/timer.xhtml" value="Ejecutar Timers" />
+					<h:outputLabel value="Roster" />
+					<p:commandLink action="/pages/roster/index.xhtml" value="#{propiedadesComunes['casabaca.curso.jee.roster']}" />
+					<h:outputLabel value="Chat Web Socket" />
+					<p:commandLink action="/pages/chat/index.html?faces-redirect=true" value="Chat Web socket" ajax="false" />
+				</h:panelGrid>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

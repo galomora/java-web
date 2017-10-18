@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	>
+<h:head>
+</h:head>
+<h:body>
+	<composite:interface>
+            <composite:attribute name="player" required="true" type="ec.casabaca.roster.model.Player" 
+            shortDescription="Entidad de Jugador" />
+        </composite:interface>
+
+        <composite:implementation>
+        	<h:panelGrid columns="2">
+            		<h:outputLabel value="#{propiedadesComunes['casabaca.curso.jee.name']}" />
+            		<h:outputText value="#{cc.attrs.player.name}" >
+            		</h:outputText>
+            		<h:outputLabel value="#{propiedadesComunes['casabaca.curso.jee.roster.position']}" />
+            		<h:outputText value="#{cc.attrs.player.position}" />
+            		<h:outputLabel value="#{propiedadesComunes['casabaca.curso.jee.roster.salary']}" />
+            		<h:outputText value="#{cc.attrs.player.salary}" >
+            			<f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" pattern="#0000.00" />
+            		</h:outputText>
+            		<h:outputLabel value="#{propiedadesComunes['casabaca.curso.jee.roster.teams']}" />
+            		<p:notificationBar><h:outputText value="Not implemented"/></p:notificationBar>
+            </h:panelGrid>
+        </composite:implementation>
+</h:body>
+</html>

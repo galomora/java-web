@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+                       xmlns:p="http://primefaces.org/ui"
+                       xmlns:f="http://java.sun.com/jsf/core"
+                       xmlns:casabacacomp="http://xmlns.jcp.org/jsf/composite/casabacacomp">
+    <ui:composition template="/layout/template.xhtml">
+
+        <ui:define name="title">#{propiedadesComunes['casabaca.curso.jee.roster.team']}</ui:define>
+        <ui:define name="head">
+        	<h1><h:outputLabel value="#{propiedadesComunes['casabaca.curso.jee.roster.team.new']}" /></h1>
+        </ui:define>
+        <ui:define name="content">
+            <p:messages autoUpdate="true" />
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+ 
+            <h:form id="player-form">
+            
+            	<h:inputText value="#{viewPlayerWSController.idPlayer}" id="id_player_text" required="true">
+            		<f:converter converterId="javax.faces.Long" />
+            	</h:inputText>
+            	
+            	<p:commandButton action="#{viewPlayerWSController.invokeWS}" process="@this player-form:id_player_text"
+            	update="player-form:results_panel">
+            	</p:commandButton>
+            	<p:outputPanel id="results_panel" >
+				<p:fieldset id="soap_fieldset" legend="SOAP">
+            		<casabacacomp:viewPlayer id="view_player_composite"
+            		player="#{viewPlayerWSController.soapPlayer}" />
+            	</p:fieldset>
+				<p:separator />            	
+            	<p:fieldset id="rest_fieldset" legend="REST">
+            		<p:accordionPanel>
+            			<p:tab title="JSON">
+            				<p:scrollPanel style="width:600px;height:200px">
+            					<h:outputText value="#{viewPlayerWSController.playerJSON}" />
+            				</p:scrollPanel>
+            			</p:tab>
+            			<p:tab title="Object">
+            			<casabacacomp:viewPlayer id="view_player_composite_json"
+            				player="#{viewPlayerWSController.restPlayer}" />
+            			</p:tab>
+            			<p:tab></p:tab>
+            		</p:accordionPanel>
+            	</p:fieldset>            	
+            	</p:outputPanel>
+            	
+            	
+            </h:form>
+            
+            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+    			<p:outputLabel value="Wait..."  />
+			</p:dialog>
+        </ui:define>
+
+    </ui:composition>
+</html>

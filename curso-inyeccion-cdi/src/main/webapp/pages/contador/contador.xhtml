@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:casabacacomp="http://xmlns.jcp.org/jsf/composite/casabacacomp">
+<h:head>
+</h:head>
+<h:body>
+	<ui:composition template="/layout/template.xhtml">
+		<ui:define name="head">
+			<casabacacomp:fecha fecha="#{contadorControlador.fecha}" />
+		</ui:define>
+		<ui:define name="content">
+			<p:panel id="panel_mensajes">
+				<p:messages id="panel-messages" autoUpdate="true"/>
+			</p:panel>
+			<h:form id="principal_form">
+				<h:panelGrid columns="3">
+					<h:outputLabel value="Esta pagina ha sido visitada" />
+					<h:outputText value="#{contadorControlador.cuenta}" />
+					<h:outputLabel value="veces" />
+					<h:outputLabel value="Estado" />
+					<h:outputText value="#{contadorControlador.estado}" />
+				</h:panelGrid>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

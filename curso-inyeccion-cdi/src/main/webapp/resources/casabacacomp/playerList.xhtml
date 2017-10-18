@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	>
+<h:head>
+</h:head>
+<h:body>
+	<composite:interface>
+            <composite:attribute name="players" required="true" type="java.util.List" shortDescription="Lista de jugadores" />
+            <composite:attribute name="addPlayerAction" required="true" method-signature="String action ()" shortDescription="accion para crear jugador" />
+            <composite:attribute name="addPlayerActionListener" required="true" method-signature="Void action ()" shortDescription="Listener para iniciar conversacion" />
+        </composite:interface>
+
+        <composite:implementation>
+        	<p:dataTable id="players-table" value="#{cc.attrs.players}" var="player" >
+               <f:facet name="header"><h:outputLabel value="#{propiedadesComunes['casabaca.curso.jee.roster.players']}"/></f:facet>
+               	<p:column>
+               		<f:facet name="header"><h:outputLabel value="#{propiedadesComunes['casabaca.curso.jee.roster.player']}"/></f:facet>
+               		<h:outputText value="#{player.name}" />
+               	</p:column>
+               	<p:column>
+               		<f:facet name="header"><h:outputLabel value="#{propiedadesComunes['casabaca.curso.jee.roster.position']}"/></f:facet>
+               		<h:outputText value="#{player.position}">
+               		</h:outputText>
+               	</p:column>
+               	<p:column>
+               		<f:facet name="header"><h:outputLabel value="#{propiedadesComunes['casabaca.curso.jee.roster.salary']}"/></f:facet>
+               		<h:outputText value="#{player.salary}">
+               			<f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2" maxFractionDigits="2" />
+               		</h:outputText>
+               	</p:column>
+               	<f:facet name="footer">
+               		<p:commandLink value="#{propiedadesComunes['casabaca.curso.jee.add']}" action="#{cc.attrs.addPlayerAction}"
+               		actionListener="#{cc.attrs.addPlayerActionListener}">
+               		</p:commandLink>
+               	</f:facet>
+            </p:dataTable>
+        </composite:implementation>
+</h:body>
+</html>

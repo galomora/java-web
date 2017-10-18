@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <ui:composition template="/layout/template.xhtml">
+
+        <ui:define name="title">Guess My Number</ui:define>
+        <ui:define name="head">Guess My Number</ui:define>
+        <ui:define name="content">
+            <h:form id="GuessMain">
+                <div style="color: black; font-size: 24px;">
+                    <p>Estoy pensando un numero desde 
+                    <span style="color: blue">#{adivinarNumeroControlador.minimoActual}</span> 
+                    hasta
+                    <span style="color: blue">#{adivinarNumeroControlador.maximoActual}</span>. 
+                    Usted tiene 
+                    <span style="color: blue">
+                        #{adivinarNumeroControlador.intentosRestantes}
+                    </span> 
+                    oportunidades.</p>
+                </div>
+                <h:panelGrid border="0" columns="5" style="font-size: 18px;">
+                    <h:outputLabel for="inputGuess">Numero:</h:outputLabel>
+                    <h:inputText id="inputGuess"
+                                 value="#{adivinarNumeroControlador.numeroUsuario}"
+                                 required="true" size="3"
+disabled="#{adivinarNumeroControlador.numeroAleatorio eq adivinarNumeroControlador.numeroUsuario or adivinarNumeroControlador.intentosRestantes le 0}"
+                               validator="#{adivinarNumeroControlador.validateNumberRange}">
+                    </h:inputText>
+                    <h:commandButton id="guessButton" value="Adivinar"
+                                     action="#{adivinarNumeroControlador.verificar}"
+disabled="#{adivinarNumeroControlador.numeroAleatorio eq adivinarNumeroControlador.numeroUsuario or adivinarNumeroControlador.intentosRestantes le 0}"/>
+                    <h:commandButton id="RestartButton" value="Reset"
+                                     action="#{adivinarNumeroControlador.inicializarControlador}"
+                                     immediate="true" />
+                    <h:outputText id="Higher" value="Mas alto!"
+rendered="#{adivinarNumeroControlador.numeroAleatorio gt adivinarNumeroControlador.numeroUsuario and adivinarNumeroControlador.numeroUsuario ne 0}"
+                                  style="color: #d20005"/>
+                    <h:outputText id="Lower" value="Mas Bajo!"
+rendered="#{adivinarNumeroControlador.numeroAleatorio lt adivinarNumeroControlador.numeroUsuario and adivinarNumeroControlador.numeroUsuario ne 0}"
+                                  style="color: #d20005"/>
+                </h:panelGrid>
+                <div style="color: #d20005; font-size: 14px;">
+                    <h:messages id="messages" globalOnly="false"/>
+                </div>
+            </h:form>
+        </ui:define>
+        
+    </ui:composition>
+</html>
